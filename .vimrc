@@ -78,8 +78,6 @@ Bundle 'garbas/vim-snipmate'
 " Autocompletion
 Bundle 'AutoComplPop'
 " Python code checker
-Bundle 'pyflakes.vim'
-" Search results counter
 Bundle 'IndexedSearch'
 " XML/HTML tags navigation
 Bundle 'matchit.zip'
