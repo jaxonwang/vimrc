@@ -10,7 +10,8 @@ set pastetoggle=<F10>          " toggle between paste and normal: for 'safer' pa
 set shiftround                 " round indent to multiple of 'shiftwidth'
 set tags=.git/tags;$HOME       " consider the repo tags first, then
                                " walk directory tree upto $HOME looking for tags
-                               " note `;` sets the stop folder. :h file-search
+                               " note `;` sets the stop , 'do':
+                               " ':GoUpdateBinaries'folder. :h file-search
 
 set modeline
 set modelines=5                " default numbers of lines to read for modeline instructions
@@ -57,9 +58,6 @@ syntax on                      " enable syntax
 
 " set synmaxcol=250              " limit syntax highlighting to 128 columns
 
-set mouse=a "enable mouse in GUI mode
-set mousehide                 " Hide mouse after chars typed
-
 set showmatch                 " Show matching brackets.
 set matchtime=2               " Bracket blinking.
 
@@ -82,7 +80,7 @@ set stl+=%-14.(%l,%c%V%)\ %P
 
 
 set foldenable                " Turn on folding
-set foldmethod=marker         " Fold on the marker
+set foldmethod=syntax         " Fold on the marker
 set foldlevel=100             " Don't autofold anything (but I can still fold manually)
 
 set foldopen=block,hor,tag    " what movements open folds
@@ -188,13 +186,14 @@ call plug#begin('~/.vim/plugged')
 
 " Programming
 " Python
-Plug 'davidhalter/jedi-vim'
-Plug 'klen/python-mode'
+Plug 'davidhalter/jedi-vim',{ 'for': 'python' }
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
 let g:pymode_lint = 1
 let g:pymode_rope = 0
 
 " Golang
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go',{ 'for': 'go' , 'do': ':GoUpdateBinaries'}
 " unlike gofmt also adds/removes imports
 let g:go_fmt_command = 'gofmt'
 let g:go_highlight_functions = 1
@@ -207,16 +206,18 @@ let g:go_highlight_build_constraints = 1
 " TODO: doesn't work
 nnoremap <C-W>gd <C-W>^zz
 
+" Erlang Runtime
+Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-tags', { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-compiler', { 'for': 'erlang' }
+Plug 'vim-erlang/vim-erlang-skeletons', { 'for': 'erlang' }
 
 " Scala
-Plug 'derekwyatt/vim-scala'
-
-" Ruby/Rails
-Plug 'tpope/vim-rails'
+Plug 'derekwyatt/vim-scala',{ 'for': 'scala' }
 
 " Js
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript',{ 'for': 'javascript' }
+Plug 'mxw/vim-jsx',{ 'for': 'javascript' }
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
