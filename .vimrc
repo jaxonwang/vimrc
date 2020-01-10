@@ -233,6 +233,18 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:tagbar_width = 30
 
+" LearderF fuzy function jump
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+noremap <leader>f :LeaderfFunction<CR>
+noremap <leader>m :LeaderfMru<CR>
+let g:Lf_ShortcutF= '<leader>t'
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+" universal ctags bug: --go-kinds=f renders segment fault
+let g:Lf_CtagsFuncOpts = { 
+            \ 'go': '--language-force=go',
+            \ }
+
 " Syntax highlight
 Plug 'gmarik/vim-markdown'
 Plug 'timcharper/textile.vim'
@@ -258,14 +270,18 @@ Plug 'Lokaltog/vim-easymotion'
 " with spaces.
 Plug 'Yggdroot/indentLine'
 
-" Powerline
-Plug 'Lokaltog/vim-powerline'
+" line
+Plug 'vim-airline/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
 
 " Better file browser
 Plug 'scrooloose/nerdtree'
 " NERDTree (better file browser) toggle
 " Ignore files on NERDTree
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+let NERDTreeShowBookmarks=1
+
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
+            \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
 
 Plug 'jistr/vim-nerdtree-tabs'
 map <F3> :NERDTreeTabsToggle<CR>
@@ -278,15 +294,8 @@ Plug 'tomtom/tcomment_vim'
 nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
 
-Plug 'ctrlpvim/ctrlp.vim'
-let g:ctrlp_map = '<leader>t'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:10'
-let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'rtscript',
-                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-  \ 'file': '\.pyc$\|\.pyo$',
-  \ }
+"" ale syntax checker
+Plug 'dense-analysis/ale'
 
 filetype plugin indent on      " Automatically detect file types.
 
