@@ -229,8 +229,9 @@ Plug 'majutsushi/tagbar'
 " toggle Tagbar display
 map <F4> :TagbarToggle<CR>
 " autofocus on Tagbar open
-let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 0
+let g:tagbar_autoclose = 0 
+let g:tagbar_foldlevel = 0 
 let g:tagbar_width = 30
 
 " LearderF fuzy function jump
@@ -295,7 +296,24 @@ nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
 
 "" ale syntax checker
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale', { 'for': ['erlang', 'go', 'python'] }
+
+" language server protocol client
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+let g:LanguageClient_diagnosticsEnable=1
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': ['/usr/local/opt/llvm/bin/clangd'],
+  \ 'c': ['/usr/local/opt/llvm/bin/clangd'],
+  \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 
 filetype plugin indent on      " Automatically detect file types.
 
