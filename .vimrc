@@ -122,8 +122,8 @@ endif
 " "}}}
 
 " Tabs
-nnoremap <leader>- :tabprev<CR>
-nnoremap <leader>= :tabnext<CR>
+nnoremap <leader>- :bprev<CR>
+nnoremap <leader>= :bnext<CR>
 
 " map <silent> <C-W>v :vnew<CR>
 " map <silent> <C-W>s :snew<CR>
@@ -272,8 +272,10 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Yggdroot/indentLine'
 
 " line
-Plug 'vim-airline/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
+" Plug 'vim-airline/vim-airline'
+" let g:airline#extensions#tabline#enabled = 1
+Plug 'itchyny/lightline.vim'
+Plug 'ap/vim-buftabline'
 
 " Better file browser
 Plug 'scrooloose/nerdtree'
@@ -295,30 +297,33 @@ Plug 'tomtom/tcomment_vim'
 nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
 
-"" ale syntax checker
-Plug 'dense-analysis/ale', { 'for': ['erlang', 'go', 'python'] }
+" Colorscheme
+Plug 'morhetz/gruvbox'
 
-" language server protocol client
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-let g:LanguageClient_diagnosticsEnable=1
-let g:LanguageClient_serverCommands = {
-  \ 'cpp': ['/usr/local/opt/llvm/bin/clangd'],
-  \ 'c': ['/usr/local/opt/llvm/bin/clangd'],
-  \ }
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
+" Language Server Protocol
+let g:lsp_settings = {
+\  'clangd': {'cmd': ['/usr/local/opt/llvm/bin/clangd']}
+\}
+nmap <buffer> gd <plug>(lsp-definition)
+nmap <buffer> K <plug>(lsp-hover)
+nmap <buffer> <f2> <plug>(lsp-rename)
+
+let g:lsp_diagnostics_echo_delay = 200
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_signs_error = {'text': '🥵'}
+let g:lsp_signs_warning = {'text': '🙈'} " icons require GUI
+let g:lsp_signs_hint = {'text':'🐷'}
+let g:lsp_signs_information = {'text':'🤪'}
+
+highlight link LspErrorText GruvboxRedSign " requires gruvbox
+highlight clear LspWarningLine 
 
 filetype plugin indent on      " Automatically detect file types.
 
-" Colorscheme
-Plug 'morhetz/gruvbox'
 
 call plug#end()
 
