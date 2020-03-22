@@ -169,6 +169,7 @@ map <leader>2h :runtime! syntax/2html.vim<CR>
 " AutoCommands " {{{
 au BufRead,BufNewFile {*.go}                                          setl ft=go tabstop=2 softtabstop=2 noexpandtab smarttab
 au BufRead,BufNewFile {*.coffee}                                      setl ft=coffee tabstop=2 softtabstop=2 expandtab smarttab
+au BufRead,BufNewFile {*.cc,*.h,*.cpp,*.hpp,*.cxx}                  setl ft=cpp tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 au BufRead,BufNewFile {Gemfile,Rakefile,*.rake,config.ru,*.rabl}      setl ft=ruby tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 au BufRead,BufNewFile {*.local}                                       setl ft=sh
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}                         setl ft=markdown
@@ -234,17 +235,27 @@ let g:tagbar_autoclose = 0
 let g:tagbar_foldlevel = 0 
 let g:tagbar_width = 30
 
-" LearderF fuzy function jump
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-noremap <leader>f :LeaderfFunction<CR>
-noremap <leader>m :LeaderfMru<CR>
-let g:Lf_ShortcutF= '<leader>t'
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-" universal ctags bug: --go-kinds=f renders segment fault
-let g:Lf_CtagsFuncOpts = { 
-            \ 'go': '--language-force=go',
-            \ }
+" " LearderF fuzy function jump
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" noremap <leader>f :LeaderfFunction<CR>
+" noremap <leader>m :LeaderfMru<CR>
+" let g:Lf_ShortcutF= '<leader>t'
+" let g:Lf_WindowPosition = 'popup'
+" let g:Lf_PreviewInPopup = 1
+" " universal ctags bug: --go-kinds=f renders segment fault
+" let g:Lf_CtagsFuncOpts = { 
+"             \ 'go': '--language-force=go'}
+
+ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
+ Plug 'junegunn/fzf.vim'
+ noremap <leader>t :Files<CR>
+ noremap <leader>f :BTags<CR>
+ let g:fzf_tags_command = 'ctags -R'
+ if executable('bat')
+ command! -bang -nargs=? -complete=dir Files
+     \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse',
+     \ '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+ endif
 
 " Syntax highlight
 Plug 'gmarik/vim-markdown'
@@ -308,9 +319,20 @@ Plug 'mattn/vim-lsp-settings'
 let g:lsp_settings = {
 \  'clangd': {'cmd': ['/usr/local/opt/llvm/bin/clangd']}
 \}
-nmap <buffer> gd <plug>(lsp-definition)
-nmap <buffer> K <plug>(lsp-hover)
-nmap <buffer> <f2> <plug>(lsp-rename)
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> K <plug>(lsp-hover)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 let g:lsp_diagnostics_echo_delay = 200
 let g:lsp_diagnostics_echo_cursor = 1
