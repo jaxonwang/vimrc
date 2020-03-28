@@ -138,6 +138,10 @@ nmap <silent> <C-l> <C-W><C-l>
 nmap <C-K> {
 nmap <C-J> }
 
+if has("nvim")
+    tnoremap <Esc> <C-\><C-n>
+endif
+
 " when pasting copy pasted text back to 
 " buffer instead replacing with owerride
 xnoremap p pgvy
@@ -234,6 +238,7 @@ let g:tagbar_autofocus = 0
 let g:tagbar_autoclose = 0 
 let g:tagbar_foldlevel = 0 
 let g:tagbar_width = 30
+let g:tagbar_autofocus = 0
 
 " " LearderF fuzy function jump
 " Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -325,6 +330,8 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> K <plug>(lsp-hover)
     nmap <buffer> <f2> <plug>(lsp-rename)
+    nnoremap <buffer> <F7> <plug>(lsp-document-format)
+    xnoremap <buffer> <F7> <plug>(lsp-document-format)
     " refer to doc to add more commands
 endfunction
 
