@@ -173,7 +173,7 @@ map <leader>2h :runtime! syntax/2html.vim<CR>
 " AutoCommands " {{{
 au BufRead,BufNewFile {*.go}                                          setl ft=go tabstop=2 softtabstop=2 noexpandtab smarttab
 au BufRead,BufNewFile {*.coffee}                                      setl ft=coffee tabstop=2 softtabstop=2 expandtab smarttab
-au BufRead,BufNewFile {*.cc,*.h,*.cpp,*.hpp,*.cxx}                  setl ft=cpp tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
+au BufRead,BufNewFile {*.cc,*.h,*.cpp,*.hpp,*.cxx}                  setl ft=cpp tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
 au BufRead,BufNewFile {Gemfile,Rakefile,*.rake,config.ru,*.rabl}      setl ft=ruby tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 au BufRead,BufNewFile {*.local}                                       setl ft=sh
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}                         setl ft=markdown
@@ -224,6 +224,9 @@ Plug 'derekwyatt/vim-scala',{ 'for': 'scala' }
 Plug 'pangloss/vim-javascript',{ 'for': 'javascript' }
 Plug 'mxw/vim-jsx',{ 'for': 'javascript' }
 
+" Haskell
+Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
+
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'honza/vim-snippets'
@@ -255,6 +258,7 @@ let g:tagbar_autofocus = 0
  Plug 'junegunn/fzf.vim'
  noremap <leader>t :Files<CR>
  noremap <leader>f :BTags<CR>
+ noremap <leader>h :History<CR>
  let g:fzf_tags_command = 'ctags -R'
  if executable('bat')
  command! -bang -nargs=? -complete=dir Files
@@ -282,6 +286,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/lastpos.vim'
 
 Plug 'Lokaltog/vim-easymotion'
+map <Leader> <Plug>(easymotion-prefix)
 
 " Displaying thin vertical lines at each indentation level for code indented
 " with spaces.
@@ -321,17 +326,14 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 " Language Server Protocol
-let g:lsp_settings = {
-\  'clangd': {'cmd': ['/usr/local/opt/llvm/bin/clangd']}
-\}
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> K <plug>(lsp-hover)
     nmap <buffer> <f2> <plug>(lsp-rename)
-    nnoremap <buffer> <F7> <plug>(lsp-document-format)
-    xnoremap <buffer> <F7> <plug>(lsp-document-format)
+    nmap <buffer> <f7> <plug>(lsp-document-format)
+    xmap <buffer> <f7> <plug>(lsp-document-format)
     " refer to doc to add more commands
 endfunction
 
@@ -357,13 +359,5 @@ filetype plugin indent on      " Automatically detect file types.
 call plug#end()
 
 set background=dark
-" use 256 colors when possible
-if &term =~? 'mlterm\|xterm\|xterm-256\|screen-256'
-	let &t_Co = 256
-    " color
-    colorscheme gruvbox 
     let g:gruvbox_contrast_dark='hard'
-else
-    " color
-    colorscheme delek
-endif
+colorscheme gruvbox 
