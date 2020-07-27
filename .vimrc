@@ -361,3 +361,5 @@ call plug#end()
 set background=dark
     let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox 
+" hight contract match pair color
+hi MatchParen cterm=none ctermbg=gray ctermfg=white
