@@ -230,6 +230,7 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'honza/vim-snippets'
+let g:snipMate = { 'snippet_version' : 1 }
 Plug 'garbas/vim-snipmate'
 
 " Class/module browser
