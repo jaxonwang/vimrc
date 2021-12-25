@@ -190,9 +190,6 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Programming
-" Python
-Plug 'davidhalter/jedi-vim',{ 'for': 'python' }
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 let g:pymode_lint = 1
 let g:pymode_rope = 0
