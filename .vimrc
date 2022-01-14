@@ -264,6 +264,15 @@ let g:tagbar_autofocus = 0
      \ '--info=inline', '--preview', '~/.vim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
  endif
 
+" Make
+Plug 'neomake/neomake'
+noremap <F5> :Neomake!<CR>
+let g:neomake_open_list = 2
+
+" Use ripgrep/
+Plug 'jremmen/vim-ripgrep'
+
+
 " Syntax highlight
 Plug 'gmarik/vim-markdown'
 Plug 'timcharper/textile.vim'
