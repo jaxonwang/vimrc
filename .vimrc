@@ -269,10 +269,6 @@ Plug 'neomake/neomake'
 noremap <F5> :Neomake!<CR>
 let g:neomake_open_list = 2
 
-" Use ripgrep/
-Plug 'jremmen/vim-ripgrep'
-
-
 " Syntax highlight
 Plug 'gmarik/vim-markdown'
 Plug 'timcharper/textile.vim'
