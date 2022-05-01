@@ -187,7 +187,7 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 
 " Scripts and Plugs " {{{
 filetype off
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 " Programming
 
