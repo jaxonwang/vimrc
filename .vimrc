@@ -1,4 +1,5 @@
-" General "{{{ set nocompatible               " be iMproved
+" General
+set nocompatible               " be iMproved
 
 scriptencoding utf-8           " utf-8 all the way
 set encoding=utf-8
@@ -19,6 +20,8 @@ set modelines=5                " default numbers of lines to read for modeline i
 set autowrite                  " Writes on make/shell commands
 set autoread
 
+set mouse=a
+
 set hidden                     " The current buffer can be put to the background without writing to disk
 
 set hlsearch                   " highlight search
@@ -26,19 +29,16 @@ set ignorecase                 " be case insensitive when searching
 set smartcase                  " be case sensitive when input has a capital letter
 set incsearch                  " show matches while typing
 
-let g:is_posix = 1             " vim's default is archaic bourne shell, bring it up to the 90s
 let mapleader = ' '
 let g:netrw_banner = 0         " do not show Netrw help banner
-" "}}}
 
-set nowrap
-set textwidth=0                " Don't wrap lines by default
+set nowrap                     " Don't wrap lines by default
 
 set tabstop=4                  " tab size eql 4 spaces
 set softtabstop=4
 set shiftwidth=4               " default shift width for indents
 set expandtab                  " replace tabs with ${tabstop} spaces
-set smarttab                   "
+set smarttab
 
 set backspace=indent
 set backspace+=eol
@@ -51,15 +51,13 @@ set cinkeys-=0#
 set cinoptions=:s,ps,ts,cs
 set cinwords=if,else,while,do
 set cinwords+=for,switch,case
-" "}}}
 
-" Visual "{{{
+" Visual
 syntax on                      " enable syntax
-
-" set synmaxcol=250              " limit syntax highlighting to 128 columns
 
 set showmatch                 " Show matching brackets.
 set matchtime=2               " Bracket blinking.
+set matchpairs+=<:>
 
 set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
 
@@ -73,16 +71,9 @@ set laststatus=2              " always show status line.
 set shortmess=atI             " shortens messages
 set showcmd                   " display an incomplete command in statusline
 
-set statusline=%<%f\          " custom statusline
-set stl+=[%{&ff}]             " show fileformat
-set stl+=%y%m%r%=
-set stl+=%-14.(%l,%c%V%)\ %P
-
-
 set foldenable                " Turn on folding
 set foldmethod=syntax         " Fold on the marker
 set foldlevel=100             " Don't autofold anything (but I can still fold manually)
-
 set foldopen=block,hor,tag    " what movements open folds
 set foldopen+=percent,mark
 set foldopen+=quickfix
@@ -97,7 +88,7 @@ set ls=2
 " line numbers
 set nu
 
-"set list                      " display unprintable characters f12 - switches
+set list                      " display unprintable characters f12 - switches
 "set listchars=tab:\ ·,eol:¬
 "set listchars+=trail:·
 "set listchars+=extends:»,precedes:«
@@ -146,18 +137,18 @@ endif
 " buffer instead replacing with owerride
 xnoremap p pgvy
 
-if has('mac')
-
-  if has('gui_running')
-    set macmeta
-  end
-
 " map(range(1,9), 'exec "imap <D-".v:val."> <C-o>".v:val."gt"')
 " map(range(1,9), 'exec " map <D-".v:val."> ".v:val."gt"')
 
 " close/delete buffer when closing window
-map <silent> <D-w> :bdelete<CR>
-endif
+" map <silent> <D-w> :bdelete<CR>
+function BufferDeleteWithoutClosingWindow()
+ let current_buff = bufnr("%")
+ bprevious
+ execute "bdelete" current_buff
+endfunction
+command! BufferDelele call BufferDeleteWithoutClosingWindow()
+cnoreabbrev bd BufferDelele 
 
 " Control+S and Control+Q are flow-control characters: disable them in your terminal settings.
 " $ stty -ixon -ixoff
@@ -168,12 +159,12 @@ inoremap <C-S> <C-O>:update<CR>
 " generate HTML version current buffer using current color scheme
 map <leader>2h :runtime! syntax/2html.vim<CR>
 
-" " }}}
+"
 
-" AutoCommands " {{{
-au BufRead,BufNewFile {*.go}                                          setl ft=go tabstop=2 softtabstop=2 noexpandtab smarttab
+" AutoCommands "
+au BufRead,BufNewFile {*.go}                                          setl ft=go tabstop=4 softtabstop=4 noexpandtab smarttab
 au BufRead,BufNewFile {*.coffee}                                      setl ft=coffee tabstop=2 softtabstop=2 expandtab smarttab
-au BufRead,BufNewFile {*.cc,*.h,*.cpp,*.hpp,*.cxx}                  setl ft=cpp tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
+au BufRead,BufNewFile {*.cc,*.h,*.cpp,*.hpp,*.cxx}                    setl ft=cpp tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
 au BufRead,BufNewFile {Gemfile,Rakefile,*.rake,config.ru,*.rabl}      setl ft=ruby tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab
 au BufRead,BufNewFile {*.local}                                       setl ft=sh
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}                         setl ft=markdown
@@ -189,10 +180,6 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 filetype off
 call plug#begin('~/.vim/plugged')
 
-" Programming
-
-let g:pymode_lint = 1
-let g:pymode_rope = 0
 
 " Golang
 Plug 'fatih/vim-go',{ 'for': 'go' , 'do': ':GoUpdateBinaries'}
@@ -324,37 +311,8 @@ vnoremap // :TComment<CR>
 " Colorscheme
 Plug 'morhetz/gruvbox'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-
-" Language Server Protocol
-function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> K <plug>(lsp-hover)
-    nmap <buffer> <f2> <plug>(lsp-rename)
-    nmap <buffer> <f7> <plug>(lsp-document-format)
-    xmap <buffer> <f7> <plug>(lsp-document-format)
-    " refer to doc to add more commands
-endfunction
-
-augroup lsp_install
-    au!
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-
-let g:lsp_diagnostics_echo_delay = 200
-let g:lsp_diagnostics_echo_cursor = 1
-let g:lsp_signs_error = {'text': '🥵'}
-let g:lsp_signs_warning = {'text': '🙈'} " icons require GUI
-let g:lsp_signs_hint = {'text':'🐷'}
-let g:lsp_signs_information = {'text':'🤪'}
-
-highlight link LspErrorText GruvboxRedSign " requires gruvbox
-highlight clear LspWarningLine 
+" coc as LSP server
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 filetype plugin indent on      " Automatically detect file types.
 
