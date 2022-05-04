@@ -182,7 +182,7 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 
 " Scripts and Plugs " {{{
 filetype off
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 " Golang
 Plug 'fatih/vim-go',{ 'for': 'go' , 'do': ':GoUpdateBinaries'}
@@ -324,6 +324,12 @@ call plug#end()
 
 set background=dark
     let g:gruvbox_contrast_dark='hard'
+
+" use try block so won't fail first time execute PlugInstall
+try
 colorscheme gruvbox 
+catch
+endtry
+
 " hight contract match pair color
 hi MatchParen cterm=none ctermbg=gray ctermfg=white
