@@ -24,6 +24,9 @@ set mouse=a
 
 set hidden                     " The current buffer can be put to the background without writing to disk
 
+" enable very magic. ex. no more \<...\> but <...>
+nnoremap / /\v
+vnoremap / /\v
 set hlsearch                   " highlight search
 set ignorecase                 " be case insensitive when searching
 set smartcase                  " be case sensitive when input has a capital letter
@@ -63,7 +66,7 @@ set wildmode=longest,list     " At command line, complete longest common string,
 
 set completeopt-=preview      " disable auto opening preview window
 
-set novisualbell              " No blinking
+set visualbell              " No blinking
 set noerrorbells              " No noise.
 set vb t_vb=                  " disable any beeps or flashes on error
 
@@ -86,7 +89,8 @@ set splitright
 " always show status bar
 set ls=2
 " line numbers
-set nu
+set number
+set relativenumber
 
 set list                      " display unprintable characters f12 - switches
 "set listchars=tab:\ ·,eol:¬
@@ -142,7 +146,7 @@ xnoremap p pgvy
 
 " close/delete buffer when closing window
 " map <silent> <D-w> :bdelete<CR>
-function BufferDeleteWithoutClosingWindow()
+function! BufferDeleteWithoutClosingWindow()
  let current_buff = bufnr("%")
  bprevious
  execute "bdelete" current_buff
@@ -179,7 +183,6 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 " Scripts and Plugs " {{{
 filetype off
 call plug#begin('~/.vim/plugged')
-
 
 " Golang
 Plug 'fatih/vim-go',{ 'for': 'go' , 'do': ':GoUpdateBinaries'}
