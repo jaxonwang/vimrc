@@ -184,6 +184,8 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 filetype off
 call plug#begin()
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " Golang
 Plug 'fatih/vim-go',{ 'for': 'go' , 'do': ':GoUpdateBinaries'}
 " unlike gofmt also adds/removes imports
@@ -333,3 +335,5 @@ endtry
 
 " hight contract match pair color
 hi MatchParen cterm=none ctermbg=gray ctermfg=white
+
+lua require('config')
