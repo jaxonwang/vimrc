@@ -98,27 +98,9 @@ set list                      " display unprintable characters f12 - switches
 "set listchars+=extends:»,precedes:«
 "map <silent> <F12> :set invlist<CR>
 
-if has('gui_running')
-  set guioptions=cMg " console dialogs, do not show menu and toolbar
-
-  " Fonts
-  " :set guifont=* " to launch a GUI dialog
-  if has('mac')
-    if has('macligatures')
-      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
-    else
-      set noantialias guifont=Andale\ Mono:h14
-    end
-  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
-  else
-  set guifont=Terminus:h16
-  end
-endif
-" "}}}
-
 " Tabs
-nnoremap <leader>- :bprev<CR>
-nnoremap <leader>= :bnext<CR>
+nnoremap <leader>- :BufferLineCyclePrev<CR>
+nnoremap <leader>= :BufferLineCycleNext<CR>
 
 " map <silent> <C-W>v :vnew<CR>
 " map <silent> <C-W>s :snew<CR>
@@ -276,7 +258,6 @@ Plug 'tpope/vim-unimpaired'
 
 Plug 'gmarik/sudo-gui.vim'
 
-" Plug 'SuperTab'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/lastpos.vim'
 
@@ -287,23 +268,17 @@ map <Leader> <Plug>(easymotion-prefix)
 " with spaces.
 Plug 'Yggdroot/indentLine'
 
-" line
-" Plug 'vim-airline/vim-airline'
-" let g:airline#extensions#tabline#enabled = 1
+" icons
+Plug 'kyazdani42/nvim-web-devicons'
+
+" line & tab
 Plug 'itchyny/lightline.vim'
-Plug 'ap/vim-buftabline'
+let g:lightline = { 'enable': { 'tabline': 0 } }
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 " Better file browser
-Plug 'scrooloose/nerdtree'
-" NERDTree (better file browser) toggle
-" Ignore files on NERDTree
-let NERDTreeShowBookmarks=1
-
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
-            \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
-
-Plug 'jistr/vim-nerdtree-tabs'
-map <F3> :NERDTreeTabsToggle<CR>
+Plug 'kyazdani42/nvim-tree.lua'
+map <F3> :NvimTreeToggle<CR>
 
 " a start screen
 Plug 'mhinz/vim-startify'
@@ -321,15 +296,14 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 filetype plugin indent on      " Automatically detect file types.
 
-
 call plug#end()
 
 set background=dark
 
 " Important!!
-" if has('termguicolors')
-"     set termguicolors
-" endif
+if has('termguicolors')
+    set termguicolors
+endif
 " The configuration options should be placed before `colorscheme sonokai`.
 "
 function! s:gruvbox_material_custom() abort
@@ -349,6 +323,6 @@ let g:gruvbox_material_diagnostic_text_highlight = 1
 colorscheme gruvbox-material
 
 " hight contract match pair color
-hi MatchParen cterm=none ctermbg=gray ctermfg=white
+" hi MatchParen cterm=none ctermbg=gray ctermfg=white
 
 lua require('config')

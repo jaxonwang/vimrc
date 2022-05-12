@@ -1,5 +1,4 @@
 
--- treesitter
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "c", "lua", "rust", "cpp", "go", "javascript", "typescript" },
@@ -27,3 +26,58 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+require('bufferline').setup {
+   options = {
+      numbers = "id", -- can be "none" | "ordinal" | "buffer_id" | "both" | function
+      close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+      right_mouse_command = "vert sbuffer %d", -- can be a string | function, see "Mouse actions"
+      left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+      max_name_length = 18,
+      max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+      tab_size = 18,
+      diagnostics = "coc",
+      diagnostics_update_in_insert = false,
+      -- NOTE: this will be called a lot so don't do any heavy processing here
+      offsets = {
+        {
+          filetype = "NvimTree",
+          text = "Explorer",
+          highlight = "PanelHeading",
+          padding = 1,
+        },
+        {
+          filetype = "DiffviewFiles",
+          text = "Diff View",
+          highlight = "PanelHeading",
+          padding = 1,
+        },
+        {
+          filetype = "packer",
+          text = "Packer",
+          highlight = "PanelHeading",
+          padding = 1,
+        },
+      },
+      show_close_icon = false,
+      show_tab_indicators = true,
+      persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+      -- can also be a table containing 2 custom separators
+      -- [focused and unfocused]. eg: { '|', '|' }
+      separator_style = "thin",
+      enforce_regular_tabs = false,
+      always_show_bufferline = false,
+      sort_by = "id",
+    },
+}
+
+require'nvim-tree'.setup {
+    view = {
+        width = 35,
+    },
+    filters ={
+        custom = {'\\.pyc$', '\\.pyo$', '\\.py\\$class$', '\\.obj$', 
+        '\\.o$', '\\.so$', '\\.egg$', '^\\.git$', '__pycache__', '\\.DS_Store' },
+    }
+}
+
