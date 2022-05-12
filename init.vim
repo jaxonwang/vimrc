@@ -314,7 +314,7 @@ nnoremap // :TComment<CR>
 vnoremap // :TComment<CR>
 
 " Colorscheme
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 
 " coc as LSP server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -325,13 +325,28 @@ filetype plugin indent on      " Automatically detect file types.
 call plug#end()
 
 set background=dark
-    let g:gruvbox_contrast_dark='hard'
 
-" use try block so won't fail first time execute PlugInstall
-try
-colorscheme gruvbox 
-catch
-endtry
+" Important!!
+" if has('termguicolors')
+"     set termguicolors
+" endif
+" The configuration options should be placed before `colorscheme sonokai`.
+"
+function! s:gruvbox_material_custom() abort
+    highlight! link TSNamespace AquaItalic
+endfunction
+
+augroup GruvboxMaterialCustom
+    autocmd!
+    autocmd ColorScheme gruvbox-material call s:gruvbox_material_custom()
+augroup END
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_diagnostic_line_highlight = 1
+let g:gruvbox_material_diagnostic_text_highlight = 1
+colorscheme gruvbox-material
 
 " hight contract match pair color
 hi MatchParen cterm=none ctermbg=gray ctermfg=white
