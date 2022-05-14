@@ -90,7 +90,6 @@ set splitright
 set dict+=/usr/share/dict/words
 
 " highlight trailing
-highlight ExtraWhitespace ctermbg=red guibg=red
 "future colorscheme commands may clear all user-defined highlight groups
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$\| \+\ze\t/
@@ -214,11 +213,18 @@ let g:snipMate = { 'snippet_version' : 1 }
 Plug 'garbas/vim-snipmate'
 
 " Class/module browser
-Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 " toggle Tagbar display
-map <F4> :TagbarToggle<CR>
+map <F4> :Vista!!<CR>
 " autofocus on Tagbar open
-let g:tagbar_autofocus = 0
+let g:vista_sidebar_width = 35
+let g:vista_echo_cursor = 0
+let g:vista_executive_for = {
+    \ 'cpp': 'coc',
+    \ 'go': 'coc',
+    \ 'rust': 'coc',
+    \ }
+let g:vista_blink = [0, 0] " disable blink
 let g:tagbar_autoclose = 0
 let g:tagbar_foldlevel = 0
 let g:tagbar_width = 30
@@ -253,6 +259,8 @@ Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+
+Plug 'windwp/nvim-autopairs'
 
 Plug 'gmarik/sudo-gui.vim'
 
@@ -373,9 +381,10 @@ let g:gruvbox_material_enable_bold = 1
 let g:gruvbox_material_enable_italic = 1
 let g:gruvbox_material_diagnostic_line_highlight = 1
 let g:gruvbox_material_diagnostic_text_highlight = 1
-colorscheme gruvbox-material
 
 " hight contract match pair color
 hi MatchParen cterm=none ctermbg=gray ctermfg=white
+
+colorscheme gruvbox-material
 
 lua require('config')
