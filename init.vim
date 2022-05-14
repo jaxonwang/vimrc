@@ -224,17 +224,6 @@ let g:tagbar_foldlevel = 0
 let g:tagbar_width = 30
 let g:tagbar_autofocus = 0
 
-" " LearderF fuzy function jump
-" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" noremap <leader>f :LeaderfFunction<CR>
-" noremap <leader>m :LeaderfMru<CR>
-" let g:Lf_ShortcutF= '<leader>t'
-" let g:Lf_WindowPosition = 'popup'
-" let g:Lf_PreviewInPopup = 1
-" " universal ctags bug: --go-kinds=f renders segment fault
-" let g:Lf_CtagsFuncOpts = {
-"             \ 'go': '--language-force=go'}
-
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  noremap <leader>t :Files<CR>
@@ -291,6 +280,7 @@ map <F3> :NvimTreeToggle<CR>
 
 " a start screen
 Plug 'mhinz/vim-startify'
+let g:startify_change_to_dir = 0
 
 Plug 'tomtom/tlib_vim'
 Plug 'tomtom/tcomment_vim'
@@ -348,6 +338,11 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 " Range select by lsp
 nmap <silent> vv <Plug>(coc-range-select)
 xmap <silent> vv <Plug>(coc-range-select)
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Show all diagnostics.
 nnoremap <silent><nowait> <F6> :<C-u>CocList diagnostics<cr>
