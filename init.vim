@@ -86,6 +86,15 @@ set virtualedit=block
 set splitbelow
 set splitright
 
+" Dictionary
+set dict+=/usr/share/dict/words
+
+" highlight trailing
+highlight ExtraWhitespace ctermbg=red guibg=red
+"future colorscheme commands may clear all user-defined highlight groups
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$\| \+\ze\t/
+
 " always show status bar
 set ls=2
 " line numbers
@@ -119,7 +128,7 @@ if has("nvim")
     tnoremap <Esc> <C-\><C-n>
 endif
 
-" when pasting copy pasted text back to 
+" when pasting copy pasted text back to
 " buffer instead replacing with owerride
 xnoremap p pgvy
 
@@ -134,7 +143,7 @@ function! BufferDeleteWithoutClosingWindow()
  execute "bdelete" current_buff
 endfunction
 command! BufferDelele call BufferDeleteWithoutClosingWindow()
-cnoreabbrev bd BufferDelele 
+cnoreabbrev bd BufferDelele
 
 " Control+S and Control+Q are flow-control characters: disable them in your terminal settings.
 " $ stty -ixon -ixoff
@@ -210,8 +219,8 @@ Plug 'majutsushi/tagbar'
 map <F4> :TagbarToggle<CR>
 " autofocus on Tagbar open
 let g:tagbar_autofocus = 0
-let g:tagbar_autoclose = 0 
-let g:tagbar_foldlevel = 0 
+let g:tagbar_autoclose = 0
+let g:tagbar_foldlevel = 0
 let g:tagbar_width = 30
 let g:tagbar_autofocus = 0
 
@@ -223,10 +232,10 @@ let g:tagbar_autofocus = 0
 " let g:Lf_WindowPosition = 'popup'
 " let g:Lf_PreviewInPopup = 1
 " " universal ctags bug: --go-kinds=f renders segment fault
-" let g:Lf_CtagsFuncOpts = { 
+" let g:Lf_CtagsFuncOpts = {
 "             \ 'go': '--language-force=go'}
 
- Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
+ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
  noremap <leader>t :Files<CR>
  noremap <leader>f :BTags<CR>
@@ -296,7 +305,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-rust-analyzer', 'coc-clangd', 'coc-tsserver',
             \'@yaegassy/coc-pylsp', 'coc-pydocstring',
-            \'coc-sh']
+            \'coc-sh',
+            \'coc-dictionary']
 
 " use k to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<cr>
@@ -371,6 +381,6 @@ let g:gruvbox_material_diagnostic_text_highlight = 1
 colorscheme gruvbox-material
 
 " hight contract match pair color
-" hi MatchParen cterm=none ctermbg=gray ctermfg=white
+hi MatchParen cterm=none ctermbg=gray ctermfg=white
 
 lua require('config')
