@@ -294,6 +294,54 @@ Plug 'sainnhe/gruvbox-material'
 " coc as LSP server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-rust-analyzer', 'coc-clangd', 'coc-tsserver',
+            \'@yaegassy/coc-pylsp', 'coc-pydocstring',
+            \'coc-sh']
+
+" use k to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<cr>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" go to def, ref, impl
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" add rename command
+command! -nargs=0 Rename :call CocActionAsync('rename')
+
+" Apply AutoFix to problem on the current line.
+" command! -nargs=0 Autofix :call CocAction('doQuickfix')
+nmap <F1>  <Plug>(coc-fix-current)
+
+" format
+nmap <F7> <Plug>(coc-format)
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Range select by lsp
+nmap <silent> vv <Plug>(coc-range-select)
+xmap <silent> vv <Plug>(coc-range-select)
+
+" Show all diagnostics.
+nnoremap <silent><nowait> <F6> :<C-u>CocList diagnostics<cr>
+
 filetype plugin indent on      " Automatically detect file types.
 
 call plug#end()
