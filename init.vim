@@ -190,22 +190,6 @@ let g:go_highlight_build_constraints = 1
 " TODO: doesn't work
 nnoremap <C-W>gd <C-W>^zz
 
-" Erlang Runtime
-Plug 'vim-erlang/vim-erlang-runtime', { 'for': 'erlang' }
-Plug 'vim-erlang/vim-erlang-tags', { 'for': 'erlang' }
-Plug 'vim-erlang/vim-erlang-compiler', { 'for': 'erlang' }
-Plug 'vim-erlang/vim-erlang-skeletons', { 'for': 'erlang' }
-
-" Scala
-Plug 'derekwyatt/vim-scala',{ 'for': 'scala' }
-
-" Js
-Plug 'pangloss/vim-javascript',{ 'for': 'javascript' }
-Plug 'mxw/vim-jsx',{ 'for': 'javascript' }
-
-" Haskell
-Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'honza/vim-snippets'
