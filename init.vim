@@ -31,6 +31,8 @@ set hlsearch                   " highlight search
 set ignorecase                 " be case insensitive when searching
 set smartcase                  " be case sensitive when input has a capital letter
 set incsearch                  " show matches while typing
+" cancel the hightlight
+nnoremap <silent> <Esc><Esc> :noh<CR>
 
 let mapleader = ' '
 let g:netrw_banner = 0         " do not show Netrw help banner
@@ -43,17 +45,11 @@ set shiftwidth=4               " default shift width for indents
 set expandtab                  " replace tabs with ${tabstop} spaces
 set smarttab
 
-set backspace=indent
-set backspace+=eol
-set backspace+=start
-
 set autoindent
 set cindent
 set indentkeys-=0#            " do not break indent on #
 set cinkeys-=0#
 set cinoptions=:s,ps,ts,cs
-set cinwords=if,else,while,do
-set cinwords+=for,switch,case
 
 " Visual
 syntax on                      " enable syntax
@@ -74,12 +70,9 @@ set laststatus=2              " always show status line.
 set shortmess=atI             " shortens messages
 set showcmd                   " display an incomplete command in statusline
 
-set foldenable                " Turn on folding
-set foldmethod=syntax         " Fold on the marker
-set foldlevel=100             " Don't autofold anything (but I can still fold manually)
-set foldopen=block,hor,tag    " what movements open folds
-set foldopen+=percent,mark
-set foldopen+=quickfix
+set nofoldenable              " do not fold when open
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 set virtualedit=block
 
@@ -90,8 +83,8 @@ set splitright
 set dict+=/usr/share/dict/words
 
 " highlight trailing
-"future colorscheme commands may clear all user-defined highlight groups
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" future colorscheme commands may clear all user-defined highlight groups
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=green guibg=green
 match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 " always show status bar
@@ -123,16 +116,13 @@ nmap <silent> <C-l> <C-W><C-l>
 nmap <C-K> {
 nmap <C-J> }
 
-if has("nvim")
-    tnoremap <Esc> <C-\><C-n>
-endif
+" if has("nvim")
+"     tnoremap <Esc> <C-\><C-n>
+" endif
 
 " when pasting copy pasted text back to
 " buffer instead replacing with owerride
 xnoremap p pgvy
-
-" map(range(1,9), 'exec "imap <D-".v:val."> <C-o>".v:val."gt"')
-" map(range(1,9), 'exec " map <D-".v:val."> ".v:val."gt"')
 
 " close/delete buffer when closing window
 " map <silent> <D-w> :bdelete<CR>
@@ -153,7 +143,6 @@ inoremap <C-S> <C-O>:update<CR>
 " generate HTML version current buffer using current color scheme
 map <leader>2h :runtime! syntax/2html.vim<CR>
 
-"
 
 " AutoCommands "
 au BufRead,BufNewFile {*.go}                                          setl ft=go tabstop=4 softtabstop=4 noexpandtab smarttab
@@ -184,11 +173,6 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_build_constraints = 1
-
-
-" goes to the definition under cursor in a new split
-" TODO: doesn't work
-nnoremap <C-W>gd <C-W>^zz
 
 " Snippets
 Plug 'rafamadriz/friendly-snippets'
@@ -280,7 +264,7 @@ vnoremap // <Plug>(comment_toggle_linewise_visual)
 nnoremap /b <Plug>(comment_toggle_current_blockwise)
 vnoremap /b <Plug>(comment_toggle_blockwise_visual)
 
-Plug 'dstein64/vim-startuptime' 
+Plug 'dstein64/vim-startuptime'
 
 " Colorscheme
 Plug 'sainnhe/gruvbox-material'
