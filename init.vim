@@ -72,6 +72,7 @@ set showcmd                   " display an incomplete command in statusline
 
 set nofoldenable              " do not fold when open
 set foldmethod=expr
+set foldlevel=100
 set foldexpr=nvim_treesitter#foldexpr()
 
 set virtualedit=block
