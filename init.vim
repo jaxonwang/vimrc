@@ -267,6 +267,16 @@ vnoremap /b <Plug>(comment_toggle_blockwise_visual)
 
 Plug 'dstein64/vim-startuptime'
 
+" range select
+Plug 'terryma/vim-expand-region'
+xmap <silent> v <Plug>(expand_region_expand)
+let g:expand_region_text_objects = {
+        \ 'i]'  :1,
+        \ 'ib'  :1,
+        \ 'iB'  :1,
+        \ 'ip'  :0,
+        \ }
+
 " Colorscheme
 Plug 'sainnhe/gruvbox-material'
 
@@ -314,10 +324,6 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 
 " Run the Code Lens action on the current line.
 nmap <leader>cl  <Plug>(coc-codelens-action)
-
-" Range select by lsp
-nmap <silent> vv <Plug>(coc-range-select)
-xmap <silent> vv <Plug>(coc-range-select)
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
