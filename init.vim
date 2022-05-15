@@ -212,8 +212,12 @@ let g:vista_blink = [0, 0] " disable blink
 
 " Make
 Plug 'neomake/neomake'
-noremap <F5> :Neomake!<CR>
 let g:neomake_open_list = 2
+noremap <F5> :Neomake!<CR>
+
+Plug 'vim-test/vim-test'
+noremap <F6> :TestNearest<CR>
+let test#strategy = "neomake"
 
 " Syntax highlight
 Plug 'gmarik/vim-markdown'
@@ -331,7 +335,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Show all diagnostics.
-nnoremap <silent><nowait> <F6> :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <F8> :<C-u>CocList diagnostics<cr>
 
 filetype plugin indent on      " Automatically detect file types.
 
