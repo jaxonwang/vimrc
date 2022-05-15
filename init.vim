@@ -191,10 +191,13 @@ let g:go_highlight_build_constraints = 1
 nnoremap <C-W>gd <C-W>^zz
 
 " Snippets
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'honza/vim-snippets'
-let g:snipMate = { 'snippet_version' : 1 }
-Plug 'garbas/vim-snipmate'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'L3MON4D3/LuaSnip'
+" press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+" -1 for jumping backwards.
+inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
 " Class/module browser
 Plug 'liuchengxu/vista.vim'
@@ -209,10 +212,6 @@ let g:vista_executive_for = {
     \ 'rust': 'coc',
     \ }
 let g:vista_blink = [0, 0] " disable blink
-let g:tagbar_autoclose = 0
-let g:tagbar_foldlevel = 0
-let g:tagbar_width = 30
-let g:tagbar_autofocus = 0
 
  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
  Plug 'junegunn/fzf.vim'
@@ -274,10 +273,14 @@ map <F3> :NvimTreeToggle<CR>
 Plug 'mhinz/vim-startify'
 let g:startify_change_to_dir = 0
 
-Plug 'tomtom/tlib_vim'
-Plug 'tomtom/tcomment_vim'
-nnoremap // :TComment<CR>
-vnoremap // :TComment<CR>
+" comment
+Plug 'numToStr/Comment.nvim'
+nnoremap // <Plug>(comment_toggle_current_linewise)
+vnoremap // <Plug>(comment_toggle_linewise_visual)
+nnoremap /b <Plug>(comment_toggle_current_blockwise)
+vnoremap /b <Plug>(comment_toggle_blockwise_visual)
+
+Plug 'dstein64/vim-startuptime' 
 
 " Colorscheme
 Plug 'sainnhe/gruvbox-material'
