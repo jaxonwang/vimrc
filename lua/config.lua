@@ -84,3 +84,5 @@ require'nvim-tree'.setup {
 require('Comment').setup{}
 
 require("luasnip.loaders.from_vscode").lazy_load()
+
+require('hop').setup()

@@ -237,9 +237,9 @@ Plug 'gmarik/sudo-gui.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/lastpos.vim'
 
-Plug 'ggandor/lightspeed.nvim'
-" Plug 'Lokaltog/vim-easymotion'
-" map <Leader> <Plug>(easymotion-prefix)
+Plug 'phaazon/hop.nvim'
+noremap s :HopWordAC<CR>
+noremap S :HopWordBC<CR>
 
 " Displaying thin vertical lines at each indentation level for code indented
 " with spaces.
