@@ -52,7 +52,7 @@ set cinkeys-=0#
 set cinoptions=:s,ps,ts,cs
 
 " Visual
-syntax on                      " enable syntax
+" syntax on                      " I use tree-sitter now
 
 set showmatch                 " Show matching brackets.
 set matchtime=2               " Bracket blinking.
@@ -161,7 +161,6 @@ au! BufWritePost      {*.snippet,*.snippets}                          call Reloa
 " " }}}
 
 " Scripts and Plugs " {{{
-filetype off
 call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -220,8 +219,7 @@ noremap <F6> :TestNearest<CR>
 let test#strategy = "neomake"
 
 " Syntax highlight
-Plug 'gmarik/vim-markdown'
-Plug 'timcharper/textile.vim'
+Plug 'gmarik/vim-markdown', {'for': 'markdown'}
 
 " Git integration
 Plug 'tpope/vim-git'
@@ -239,8 +237,9 @@ Plug 'gmarik/sudo-gui.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-scripts/lastpos.vim'
 
-Plug 'Lokaltog/vim-easymotion'
-map <Leader> <Plug>(easymotion-prefix)
+Plug 'ggandor/lightspeed.nvim'
+" Plug 'Lokaltog/vim-easymotion'
+" map <Leader> <Plug>(easymotion-prefix)
 
 " Displaying thin vertical lines at each indentation level for code indented
 " with spaces.
@@ -336,8 +335,6 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Show all diagnostics.
 nnoremap <silent><nowait> <F8> :<C-u>CocList diagnostics<cr>
-
-filetype plugin indent on      " Automatically detect file types.
 
 call plug#end()
 
