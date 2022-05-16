@@ -80,6 +80,8 @@ set virtualedit=block
 set splitbelow
 set splitright
 
+set nofixendofline
+
 " Dictionary
 set dict+=/usr/share/dict/words
 
