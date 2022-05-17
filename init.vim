@@ -115,10 +115,6 @@ nmap <silent> <C-j> <C-W><C-j>
 nmap <silent> <C-h> <C-W><C-h>
 nmap <silent> <C-l> <C-W><C-l>
 
-  " vertical paragraph-movement
-nmap <C-K> {
-nmap <C-J> }
-
 " if has("nvim")
 "     tnoremap <Esc> <C-\><C-n>
 " endif
