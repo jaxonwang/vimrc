@@ -253,6 +253,8 @@ Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
 " Better file browser
 Plug 'kyazdani42/nvim-tree.lua'
+" folders that contain only one folder are grouped
+let g:nvim_tree_group_empty = 1
 map <F3> :NvimTreeToggle<CR>
 
 " a start screen
