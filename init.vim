@@ -163,6 +163,9 @@ call plug#begin()
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" Tmux integration
+Plug 'christoomey/vim-tmux-navigator'
+
 " Golang
 Plug 'fatih/vim-go',{ 'for': 'go' , 'do': ':GoUpdateBinaries'}
 " unlike gofmt also adds/removes imports
