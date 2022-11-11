@@ -226,6 +226,7 @@ Plug 'gmarik/vim-markdown', {'for': 'markdown'}
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -241,6 +242,9 @@ Plug 'vim-scripts/lastpos.vim'
 Plug 'phaazon/hop.nvim'
 noremap s :HopWordAC<CR>
 noremap S :HopWordBC<CR>
+
+" Peak number
+Plug 'nacro90/numb.nvim'
 
 " Displaying thin vertical lines at each indentation level for code indented
 " with spaces.
