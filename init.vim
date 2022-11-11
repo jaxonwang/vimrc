@@ -289,6 +289,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = ['coc-json', 'coc-go', 'coc-rust-analyzer', 'coc-clangd', 'coc-tsserver',
             \'@yaegassy/coc-pylsp', 'coc-pydocstring',
             \'coc-sh',
+            \'coc-sql',
             \'coc-dictionary']
 
 " use k to show documentation in preview window.
