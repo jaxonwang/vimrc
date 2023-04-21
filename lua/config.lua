@@ -90,3 +90,5 @@ require('hop').setup()
 require('gitsigns').setup()
 
 require('numb').setup()
+
+require('nvim-autopairs').setup()
