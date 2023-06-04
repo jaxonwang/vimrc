@@ -1,0 +1,5 @@
+" ideavim is sooo stupid that even it doesn't understand vim functions to find
+" sym links. hard code here.
+"
+source ~/vimrc/base.vim
+source ~/vimrc/idea.vim
