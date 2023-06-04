@@ -170,7 +170,7 @@ endfunction
 
 " go to def, ref, impl
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
+" nmap <silent> gt <Plug>(coc-type-definition) will used to go to test
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
